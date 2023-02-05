@@ -144,7 +144,7 @@ public class Model extends Observable {
             for (int j = 0; j < size; j += 1){
                 if (b.tile(i,j) == null){
                     emptyspaceexist = true;
-                    break;
+                    return emptyspaceexist;
                 }
             }
         }
