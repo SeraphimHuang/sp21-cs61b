@@ -158,8 +158,22 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
-        return false;
+        int size = b.size();
+        int MAX_PIECE = 2048;
+        boolean maxtileexists = false;
+        for (int i = 0; i < size; i += 1){
+            for (int j = 0; j < size; j += 1){
+                if (b.tile(i, j) != null){
+                    if (b.tile(i, j).value() == MAX_PIECE) {
+                        maxtileexists = true;
+                        return maxtileexists;
+                    }
+                }
+            }
+        }
+        return maxtileexists;
     }
+
 
     /**
      * Returns true if there are any valid moves on the board.
