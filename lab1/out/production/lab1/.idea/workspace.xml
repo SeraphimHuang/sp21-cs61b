@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db97a4cd-1f38-450d-b7e9-a8aa87be487a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Exercise4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LookingForGreatest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Triangle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TriangleDraw.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw1/DrawTriangle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../library-sp21" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,18 +29,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;15&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/huangziye/Desktop/cs61b/sp21-cs61b/lab1&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "15",
+    "last_opened_file_path": "/Users/huangziye/Desktop/cs61b/sp21-cs61b/lab1",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font"
   }
-}</component>
-  <component name="RunManager" selected="Application.HelloNumbers">
+}]]></component>
+  <component name="RunManager" selected="Application.Triangle">
+    <configuration name="Collatz" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Collatz" />
+      <module name="lab1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Exercise4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Exercise4" />
       <module name="lab1" />
@@ -59,15 +63,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LookingForGreatest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="LookingForGreatest" />
-      <module name="lab1" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SkipHorse" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SkipHorse" />
+    <configuration name="Triangle" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Triangle" />
       <module name="lab1" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -95,11 +92,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Triangle" />
+        <item itemvalue="Application.Collatz" />
         <item itemvalue="Application.HelloNumbers" />
         <item itemvalue="Application.TriangleDraw" />
         <item itemvalue="Application.Exercise4" />
-        <item itemvalue="Application.SkipHorse" />
-        <item itemvalue="Application.LookingForGreatest" />
       </list>
     </recent_temporary>
   </component>
