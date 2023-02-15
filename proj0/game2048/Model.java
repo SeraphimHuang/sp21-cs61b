@@ -122,7 +122,7 @@ public class Model extends Observable {
                 Tile m = board.tile(c, mergeable);
                 if (tr < 0){
                     break;
-                }
+                } else {
                 Tile t = board.tile(c, tr);
                 if (m == null){
                     changed = true;
@@ -136,12 +136,14 @@ public class Model extends Observable {
                     board.move(c, mergeable,t);
                     mergeable -= 1;
                 } else if (tr == r){
+                    mergeable -= 1;
                     continue;
                 } else {
                     changed = true;
                     board.move(c, r, t);
                     mergeable -= 1;
                 }
+            }
             }
         }
         board.setViewingPerspective(Side.NORTH);
