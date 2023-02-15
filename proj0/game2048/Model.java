@@ -109,16 +109,58 @@ public class Model extends Observable {
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
+        int size = board.size();
 
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        for (int c = 0; c < board.size(); c += 1){
+            int mergeable = size - 1;
+            for (int r = 3; r >= 0; r -= 1){
+                int tr = findTop(c, r); // tr stands for tile row
+                Tile m = board.tile(c, mergeable);
+                if (tr < 0){
+                    break;
+                }
+                Tile t = board.tile(c, tr);
+                if (m == null){
+                    changed = true;
+                    board.move(c, mergeable, t);
+                } else if (mergeable == tr){
+                    continue;
+                }
+                else if (m.value() == t.value()){
+                    changed = true;
+                    score += m.value()*2;
+                    board.move(c, mergeable,t);
+                    mergeable -= 1;
+                } else if (tr == r){
+                    continue;
+                } else {
+                    changed = true;
+                    board.move(c, r, t);
+                    mergeable -= 1;
+                }
+            }
+        }
         checkGameOver();
         if (changed) {
             setChanged();
         }
         return changed;
+    }
+
+
+    /** Returns the highest tile in the given column and
+     * the upperlimit of the row.
+     */
+    public int findTop(int c, int r){
+        for (int i = r; i >= 0; i -= 1){
+            if (board.tile(c, i) != null){
+                return i;
+            }
+        }
+        return -1;
     }
 
     /** Checks if the game is over and sets the gameOver variable
@@ -183,7 +225,7 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
-        return false;git 
+        return false;
     }
 
 
