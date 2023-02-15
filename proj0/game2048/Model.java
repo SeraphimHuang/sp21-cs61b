@@ -114,6 +114,7 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        board.setViewingPerspective(side);
         for (int c = 0; c < board.size(); c += 1){
             int mergeable = size - 1;
             for (int r = 3; r >= 0; r -= 1){
@@ -143,6 +144,7 @@ public class Model extends Observable {
                 }
             }
         }
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
@@ -225,7 +227,26 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
-        return false;
+        boolean atleastonemoveexists = false;
+        if (emptySpaceExists(b)){
+            atleastonemoveexists = true;
+            return  atleastonemoveexists;
+        }
+        for (int c = 0; c < b.size(); c += 1){
+            for (int r = 0; r < b.size(); r += 1){
+                if (c+1 < b.size()){
+                    if (b.tile(c,r).value() == b.tile(c+1,r).value()){
+                        atleastonemoveexists = true;
+                    }
+                }
+                if (r+1 < b.size()){
+                    if (b.tile(c,r).value() == b.tile(c,r+1).value()){
+                        atleastonemoveexists = true;
+                    }
+                }
+            }
+        }
+        return atleastonemoveexists;
     }
 
 
