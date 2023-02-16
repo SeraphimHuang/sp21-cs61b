@@ -135,7 +135,12 @@ public class Model extends Observable {
                     score += m.value()*2;
                     board.move(c, mergeable,t);
                     mergeable -= 1;
-                } else if (tr == r){
+                } else if ((mergeable-1) != tr){
+                    changed = true;
+                    board.move(c, mergeable - 1, t);
+                    mergeable -= 1;
+                }
+                else if (tr == r){
                     mergeable -= 1;
                 } else {
                     changed = true;
