@@ -137,7 +137,6 @@ public class Model extends Observable {
                     mergeable -= 1;
                 } else if (tr == r){
                     mergeable -= 1;
-                    continue;
                 } else {
                     changed = true;
                     board.move(c, r, t);
