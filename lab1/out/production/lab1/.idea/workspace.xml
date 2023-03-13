@@ -3,6 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="db97a4cd-1f38-450d-b7e9-a8aa87be487a" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/../hw1/DrawTriangle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw1/ForListMax.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw1/windowPosSum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LookingForGreatest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LookingForGreatest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lab1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lab1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/lab1/LookingForGreatest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/lab1/LookingForGreatest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../library-sp21" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +46,7 @@
     "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Triangle">
+  <component name="RunManager" selected="Application.LookingForGreatest">
     <configuration name="Collatz" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Collatz" />
       <module name="lab1" />
@@ -49,15 +54,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Exercise4" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Exercise4" />
+    <configuration name="HelloNumbers" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HelloNumbers" />
       <module name="lab1" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HelloNumbers" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="HelloNumbers" />
+    <configuration name="LookingForGreatest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="LookingForGreatest" />
       <module name="lab1" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -92,11 +97,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LookingForGreatest" />
+        <item itemvalue="Application.HelloNumbers" />
         <item itemvalue="Application.Triangle" />
         <item itemvalue="Application.Collatz" />
-        <item itemvalue="Application.HelloNumbers" />
         <item itemvalue="Application.TriangleDraw" />
-        <item itemvalue="Application.Exercise4" />
       </list>
     </recent_temporary>
   </component>
