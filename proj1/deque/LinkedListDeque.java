@@ -5,7 +5,7 @@ public class LinkedListDeque<T>{
         public Node prev;
         public Node next;
         public T item;
-        public Node(Node p, int i, Node n){
+        public Node(Node p, T i, Node n){
             prev = p;
             item = i;
             next = n;
@@ -15,7 +15,7 @@ public class LinkedListDeque<T>{
     public Node sentinel;
     public LinkedListDeque(){
         size = 0;
-        sentinel = Node(null, null, null);
+        sentinel = new Node(null, null, null);
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
     }
@@ -41,5 +41,84 @@ public class LinkedListDeque<T>{
     public int size(){
         return size;
     }
+
+    public void printDeque(){
+        Node n = sentinel.next;
+        while (n != sentinel){
+            System.out.print(n.item);
+            n = n.next;
+        }
+        System.out.println();
+    }
+
+    public T removeFirst(){
+        Node a = sentinel.next;
+        sentinel.next = a.next;
+        a.next.prev = sentinel;
+        if (a != sentinel){
+            size -= 1;
+            return a.item;
+        } else {
+            return null;
+        }
+    }
+
+    public T removeLast(){
+        Node a = sentinel.prev;
+        sentinel.prev = a.prev;
+        a.prev.next = sentinel;
+        if (a != sentinel){
+            size -= 1;
+            return a.item;
+        } else {
+            return null;
+        }
+    }
+
+    public T get(int index){
+        Node curr = sentinel.next;
+        int curr_index = 0;
+        while (curr != sentinel){
+            if (curr_index != index){
+                curr = curr.next;
+                curr_index += 1;
+            } else {
+                return curr.item;
+            }
+        }
+        return null;
+    }
+
+    public T getRecursive(int index){
+        return getRecursiveHelper(index, sentinel.next);
+    }
+
+    public T getRecursiveHelper(int index, Node curr){
+        if (curr == sentinel){
+            return null;
+        } else if (index == 0){
+            return curr.item;
+        } else {
+            return getRecursiveHelper(index-1, curr.next);
+        }
+    }
+
+    public boolean equals(Object o){
+        if (o instanceof LinkedListDeque){
+            for (int i = 0; i < size; i += 1){
+                if (o.get(i) != this.get(i)){
+                    return false;
+                } else if (o.size() != size){
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+
+
 
 }
