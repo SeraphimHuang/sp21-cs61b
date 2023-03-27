@@ -103,21 +103,6 @@ public class LinkedListDeque<T>{
         }
     }
 
-    public boolean equals(Object o){
-        if (o instanceof LinkedListDeque){
-            for (int i = 0; i < size; i += 1){
-                if (o.get(i) != this.get(i)){
-                    return false;
-                } else if (o.size() != size){
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        } else {
-            return false;
-        }
-    }
 
 
 
