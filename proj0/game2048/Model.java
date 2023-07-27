@@ -188,18 +188,18 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
-        boolean emptyspaceexist = false;
         int size = b.size();
         for (int i = 0; i < size; i += 1){
             for (int j = 0; j < size; j += 1){
-                if (b.tile(i,j) == null){
-                    emptyspaceexist = true;
-                    return emptyspaceexist;
+                Tile t = b.tile(i, j);
+                if (t == null){
+                    return true;
                 }
             }
         }
-        return emptyspaceexist;
+        return false;
     }
+
 
     /**
      * Returns true if any tile is equal to the maximum valid value.
@@ -209,20 +209,19 @@ public class Model extends Observable {
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
         int size = b.size();
-        int MAX_PIECE = 2048;
-        boolean maxtileexists = false;
         for (int i = 0; i < size; i += 1){
             for (int j = 0; j < size; j += 1){
-                if (b.tile(i, j) != null){
-                    if (b.tile(i, j).value() == MAX_PIECE) {
-                        maxtileexists = true;
-                        return maxtileexists;
+                Tile t = b.tile(i, j);
+                if (t != null){
+                    if (t.value() == MAX_PIECE){
+                        return true;
                     }
                 }
             }
         }
-        return maxtileexists;
+        return false;
     }
+
 
 
     /**
@@ -233,26 +232,21 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
-        boolean atleastonemoveexists = false;
         if (emptySpaceExists(b)){
-            atleastonemoveexists = true;
-            return  atleastonemoveexists;
+            return true;
         }
-        for (int c = 0; c < b.size(); c += 1){
-            for (int r = 0; r < b.size(); r += 1){
-                if (c+1 < b.size()){
-                    if (b.tile(c,r).value() == b.tile(c+1,r).value()){
-                        atleastonemoveexists = true;
-                    }
-                }
-                if (r+1 < b.size()){
-                    if (b.tile(c,r).value() == b.tile(c,r+1).value()){
-                        atleastonemoveexists = true;
-                    }
+        int size = b.size();
+        for (int i = 0; i < size - 1; i += 1){
+            for (int j = 0; j < size - 1; j += 1){
+                Tile t = b.tile(i, j);
+                Tile t1 = b.tile(i, j + 1);
+                Tile t2 = b.tile(i + 1, j);
+                if ((t.value() == t1.value() | (t.value() == t2.value()))){
+                    return true;
                 }
             }
         }
-        return atleastonemoveexists;
+        return false;
     }
 
 

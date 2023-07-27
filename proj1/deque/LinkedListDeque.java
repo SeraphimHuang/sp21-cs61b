@@ -1,11 +1,11 @@
 package deque;
 
 public class LinkedListDeque<T>{
-    public class Node{
-        public Node prev;
-        public Node next;
-        public T item;
-        public Node(Node p, T i, Node n){
+    private class Node{
+        private Node prev;
+        private Node next;
+        private T item;
+        private Node(Node p, T i, Node n){
             prev = p;
             item = i;
             next = n;
@@ -46,6 +46,7 @@ public class LinkedListDeque<T>{
         Node n = sentinel.next;
         while (n != sentinel){
             System.out.print(n.item);
+            System.out.print(' ');
             n = n.next;
         }
         System.out.println();
