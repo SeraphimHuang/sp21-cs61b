@@ -109,48 +109,19 @@ public class Model extends Observable {
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
-        int size = board.size();
 
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
         board.setViewingPerspective(side);
-        for (int c = 0; c < board.size(); c += 1){
-            int mergeable = size - 1;
-            for (int r = 3; r >= 0; r -= 1){
-                int tr = findTop(c, r); // tr stands for tile row
-                Tile m = board.tile(c, mergeable);
-                if (tr < 0){
-                    break;
-                } else {
-                Tile t = board.tile(c, tr);
-                if (m == null){
-                    changed = true;
-                    board.move(c, mergeable, t);
-                } else if (mergeable == tr){
-                    continue;
-                }
-                else if (m.value() == t.value()){
-                    changed = true;
-                    score += m.value()*2;
-                    board.move(c, mergeable,t);
-                    mergeable -= 1;
-                } else if ((mergeable-1) != tr){
-                    changed = true;
-                    board.move(c, mergeable - 1, t);
-                    mergeable -= 1;
-                }
-                else if (tr == r){
-                    mergeable -= 1;
-                } else {
-                    changed = true;
-                    board.move(c, r, t);
-                    mergeable -= 1;
-                }
-            }
+        int size = board.size();
+        for (int i = 0; i < size; i += 1){
+            if (col_tilt(i)){
+                changed = true;
             }
         }
         board.setViewingPerspective(Side.NORTH);
+
         checkGameOver();
         if (changed) {
             setChanged();
@@ -158,18 +129,77 @@ public class Model extends Observable {
         return changed;
     }
 
+    public boolean col_tilt(int col){
+        int size = board.size();
+        boolean col_changed = false;
+        int mergeable_value = -1;
+        int mergeable_tile_row_index = -1;
+        for (int i = size  - 1; i >= 0; i -= 1){
+            int top_tile_row_index = find_top_tile(col, i);
+            if (top_tile_row_index == -1){
+                return col_changed;
+            }
+            else {
+                Tile t = board.tile(col, top_tile_row_index);
+                int value = t.value();
+                if (value == mergeable_value){
+                    board.move(col, mergeable_tile_row_index, t);
+                    col_changed = true;
+                    score += 2*mergeable_value;
+                    mergeable_value = -1;
+                    mergeable_tile_row_index = -1;
+                } else {
+                    int top_empty_row_index = find_top_empty(col, top_tile_row_index);
+                    if (top_empty_row_index != -1){
+                        board.move(col, top_empty_row_index, t);
+                        col_changed = true;
+                        mergeable_value = value;
+                        mergeable_tile_row_index = top_empty_row_index;
+                    } else {
+                        mergeable_value = value;
+                        mergeable_tile_row_index = top_tile_row_index;
+                    }
+                }
+            }
+        }
+        return col_changed;
+    }
 
-    /** Returns the highest tile in the given column and
-     * the upperlimit of the row.
+    /**
+     *
+     * @param col, top_row
+     * @return the index of the top non-empty tile in within the range of col and top_row
+     * if the col is empty, return -1
      */
-    public int findTop(int c, int r){
-        for (int i = r; i >= 0; i -= 1){
-            if (board.tile(c, i) != null){
-                return i;
+    public int find_top_tile(int col, int top_row){
+        for (int row = top_row; row >= 0; row -= 1){
+            Tile t = board.tile(col, row);
+            if (t != null){
+                return row;
             }
         }
         return -1;
     }
+
+    /**
+     *
+     * @param col current col index
+     * @param row
+     * @return the row index of top empty tile in col above row, if there is None, return -1
+     */
+    public int find_top_empty(int col, int row){
+        int size = board.size();
+        for (int j = size - 1; j >= row + 1; j -= 1){
+            Tile t = board.tile(col, j);
+            if (t == null){
+                return j;
+            }
+        }
+        return -1;
+    }
+
+
+
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
@@ -241,7 +271,7 @@ public class Model extends Observable {
                 Tile t = b.tile(i, j);
                 Tile t1 = b.tile(i, j + 1);
                 Tile t2 = b.tile(i + 1, j);
-                if ((t.value() == t1.value() | (t.value() == t2.value()))){
+                if ((t.value() == t1.value() || (t.value() == t2.value()))){
                     return true;
                 }
             }
