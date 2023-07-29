@@ -266,15 +266,30 @@ public class Model extends Observable {
             return true;
         }
         int size = b.size();
-        for (int i = 0; i < size - 1; i += 1){
-            for (int j = 0; j < size - 1; j += 1){
-                Tile t = b.tile(i, j);
-                Tile t1 = b.tile(i, j + 1);
-                Tile t2 = b.tile(i + 1, j);
-                if ((t.value() == t1.value() || (t.value() == t2.value()))){
-                    return true;
+        for (int col = 0; col < size; col += 1){
+            for (int row = 0; row < size; row += 1){
+                Tile t = b.tile(col, row);
+                if (validTile(b, col + 1, row)){
+                    Tile t1 = b.tile(col + 1, row);
+                    if (t.value() == t1.value()){
+                        return true;
+                    }
+                }
+                if (validTile(b, col, row + 1)){
+                    Tile t1 = b.tile(col, row + 1);
+                    if (t.value() == t1.value()){
+                        return true;
+                    }
                 }
             }
+        }
+        return false;
+    }
+
+    public static boolean validTile(Board b, int col, int row){
+        int size = b.size();
+        if (((col >= 0) & (col < size)) & ((row >= 0) & (row < size))){
+            return true;
         }
         return false;
     }
