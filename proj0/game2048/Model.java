@@ -115,19 +115,93 @@ public class Model extends Observable {
         // changed local variable to true.
         board.setViewingPerspective(side);
         int size = board.size();
-        for (int i = 0; i < size; i += 1){
-            if (col_tilt(i)){
+        for (int j = 0; j < size; j += 1){
+            if (column_tilt(j)){
                 changed = true;
             }
         }
         board.setViewingPerspective(Side.NORTH);
+        return changed;
+    }
 
-        checkGameOver();
-        if (changed) {
-            setChanged();
+    public boolean column_tilt(int column_number){
+        boolean changed = false;
+        int size = board.size();
+        // default value: [false] * size
+        boolean[] merged = new boolean[size];
+
+        for (int i = size - 2; i >= 0; i -= 1){
+            Tile t = board.tile(column_number, i);
+
+            if (t != null){
+                int non_empty = rowIndexOfNearestTopNonEmptyTile(i, column_number);
+                int empty = rowIndexOfFarestAccessibleEmptyTile(i, column_number);
+
+                // if there's is a non_empty tile looking up from tile t
+                if  (non_empty != i){
+                    if (board.tile(column_number, non_empty).value() == t.value()){
+                        if (merged[non_empty] == false){
+                            board.move(column_number, non_empty, t);
+                            score += 2*t.value();
+                            changed = true;
+                            merged[non_empty] = true;
+                        }
+                        else if (empty != i){
+                            board.move(column_number, empty, t);
+                            changed = true;
+                        }
+
+                    }
+                    else if (board.tile(column_number, non_empty).value() != t.value() && empty != i){
+                        board.move(column_number, empty, t);
+                        changed = true;
+                    }
+                }
+                else {
+                    board.move(column_number, empty, t);
+                    changed = true;
+                }
+            }
         }
         return changed;
     }
+
+
+    /** Given the row_number and column_number of the tile t,
+     * return the row index of the first non-empty tile looking up from tile t.
+     * if there's no such tile, return row_number
+     */
+    public int rowIndexOfNearestTopNonEmptyTile(int row_number, int column_number){
+        int size = board.size();
+        for (int i = row_number + 1; i < size; i += 1){
+            if (board.tile(column_number, i) != null){
+                return i;
+            }
+        }
+        return row_number;
+    }
+
+    /** Given the row_number and column_number of the tile t,
+     * return the row index of the farest accessible empty tile looking up from tile t.
+     * if there's no such tile, return row_number
+     */
+    public int rowIndexOfFarestAccessibleEmptyTile(int row_number, int column_number){
+        int size = board.size();
+        for (int i = row_number + 1; i < size; i += 1){
+            if (board.tile(column_number, i) != null){
+                return i - 1;
+            }
+        }
+        return size - 1;
+    }
+
+
+
+
+
+
+
+
 
     public boolean col_tilt(int col){
         int size = board.size();
