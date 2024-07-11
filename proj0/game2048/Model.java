@@ -263,26 +263,34 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+
         if (emptySpaceExists(b)){
             return true;
         }
         int size = b.size();
-        for (int col = 0; col < size; col += 1){
-            for (int row = 0; row < size; row += 1){
-                Tile t = b.tile(col, row);
-                if (validTile(b, col + 1, row)){
-                    Tile t1 = b.tile(col + 1, row);
-                    if (t.value() == t1.value()){
+        for (int i = 0; i < size; i += 1){
+            for (int j = 0; j < size; j += 1){
+                /** Because there's no empty space exists in the board, Tile t is not null */
+                Tile t = b.tile(i, j);
+                if (validTileIndex(b, i+1, j)){
+                    if (b.tile(i+1, j).value() == t.value()){
                         return true;
                     }
                 }
-                if (validTile(b, col, row + 1)){
-                    Tile t1 = b.tile(col, row + 1);
-                    if (t.value() == t1.value()){
+                if (validTileIndex(b, i, j+1)){
+                    if (b.tile(i, j+1).value() == t.value()){
                         return true;
                     }
                 }
             }
+        }
+        return false;
+    }
+
+    public static boolean validTileIndex(Board b, int row, int col){
+        int size = b.size();
+        if (row >= 0 & row < size & col >= 0 & col < size){
+            return true;
         }
         return false;
     }
