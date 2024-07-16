@@ -29,7 +29,7 @@ public class TimeAList {
         AList<Double> times = new AList<>();
         AList<Integer> opCounts = new AList<>();
 
-        while (n <= 100000000){
+        while (n <= 100000){
             AList<Integer> a = new AList<>();
 
             Stopwatch sw = new Stopwatch();
