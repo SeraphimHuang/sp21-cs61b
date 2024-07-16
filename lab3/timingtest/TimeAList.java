@@ -23,6 +23,12 @@ public class TimeAList {
 
     public static void timeAListConstruction() {
         // TODO: YOUR CODE HERE
+        int n = 1000;
+
+        AList<Integer> Ns = new AList<>();
+        AList<Double> times = new AList<>();
+        AList<Integer> opCounts = new AList<>();
+
         while (n <= 100000000){
             AList<Integer> a = new AList<>();
 
@@ -39,6 +45,5 @@ public class TimeAList {
             n *= 2;
         }
         printTimingTable(Ns, times, opCounts);
-    }
     }
 }
