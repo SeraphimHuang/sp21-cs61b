@@ -113,167 +113,13 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-        board.setViewingPerspective(side);
-        int size = board.size();
-        for (int j = 0; j < size; j += 1){
-            if (column_tilt(j)){
-                changed = true;
-            }
-        }
-        board.setViewingPerspective(Side.NORTH);
-        return changed;
-    }
 
-    public boolean column_tilt(int column_number){
-        boolean changed = false;
-        int size = board.size();
-        // default value: [false] * size
-        boolean[] merged = new boolean[size];
-
-        for (int i = size - 2; i >= 0; i -= 1){
-            Tile t = board.tile(column_number, i);
-
-            if (t != null){
-                int non_empty = rowIndexOfNearestTopNonEmptyTile(i, column_number);
-                int empty = rowIndexOfFarestAccessibleEmptyTile(i, column_number);
-
-                // if there's is a non_empty tile looking up from tile t
-                if  (non_empty != i){
-                    if (board.tile(column_number, non_empty).value() == t.value()){
-                        if (merged[non_empty] == false){
-                            board.move(column_number, non_empty, t);
-                            score += 2*t.value();
-                            changed = true;
-                            merged[non_empty] = true;
-                        }
-                        else if (empty != i){
-                            board.move(column_number, empty, t);
-                            changed = true;
-                        }
-
-                    }
-                    else if (board.tile(column_number, non_empty).value() != t.value() && empty != i){
-                        board.move(column_number, empty, t);
-                        changed = true;
-                    }
-                }
-                else {
-                    board.move(column_number, empty, t);
-                    changed = true;
-                }
-            }
+        checkGameOver();
+        if (changed) {
+            setChanged();
         }
         return changed;
     }
-
-
-    /** Given the row_number and column_number of the tile t,
-     * return the row index of the first non-empty tile looking up from tile t.
-     * if there's no such tile, return row_number
-     */
-    public int rowIndexOfNearestTopNonEmptyTile(int row_number, int column_number){
-        int size = board.size();
-        for (int i = row_number + 1; i < size; i += 1){
-            if (board.tile(column_number, i) != null){
-                return i;
-            }
-        }
-        return row_number;
-    }
-
-    /** Given the row_number and column_number of the tile t,
-     * return the row index of the farest accessible empty tile looking up from tile t.
-     * if there's no such tile, return row_number
-     */
-    public int rowIndexOfFarestAccessibleEmptyTile(int row_number, int column_number){
-        int size = board.size();
-        for (int i = row_number + 1; i < size; i += 1){
-            if (board.tile(column_number, i) != null){
-                return i - 1;
-            }
-        }
-        return size - 1;
-    }
-
-
-
-
-
-
-
-
-
-    public boolean col_tilt(int col){
-        int size = board.size();
-        boolean col_changed = false;
-        int mergeable_value = -1;
-        int mergeable_tile_row_index = -1;
-        for (int i = size  - 1; i >= 0; i -= 1){
-            int top_tile_row_index = find_top_tile(col, i);
-            if (top_tile_row_index == -1){
-                return col_changed;
-            }
-            else {
-                Tile t = board.tile(col, top_tile_row_index);
-                int value = t.value();
-                if (value == mergeable_value){
-                    board.move(col, mergeable_tile_row_index, t);
-                    col_changed = true;
-                    score += 2*mergeable_value;
-                    mergeable_value = -1;
-                    mergeable_tile_row_index = -1;
-                } else {
-                    int top_empty_row_index = find_top_empty(col, top_tile_row_index);
-                    if (top_empty_row_index != -1){
-                        board.move(col, top_empty_row_index, t);
-                        col_changed = true;
-                        mergeable_value = value;
-                        mergeable_tile_row_index = top_empty_row_index;
-                    } else {
-                        mergeable_value = value;
-                        mergeable_tile_row_index = top_tile_row_index;
-                    }
-                }
-            }
-        }
-        return col_changed;
-    }
-
-    /**
-     *
-     * @param col, top_row
-     * @return the index of the top non-empty tile in within the range of col and top_row
-     * if the col is empty, return -1
-     */
-    public int find_top_tile(int col, int top_row){
-        for (int row = top_row; row >= 0; row -= 1){
-            Tile t = board.tile(col, row);
-            if (t != null){
-                return row;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     *
-     * @param col current col index
-     * @param row
-     * @return the row index of top empty tile in col above row, if there is None, return -1
-     */
-    public int find_top_empty(int col, int row){
-        int size = board.size();
-        for (int j = size - 1; j >= row + 1; j -= 1){
-            Tile t = board.tile(col, j);
-            if (t == null){
-                return j;
-            }
-        }
-        return -1;
-    }
-
-
-
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
@@ -292,17 +138,8 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
-        int size = b.size();
-        for (int i = 0; i < size; i += 1){
-            for (int j = 0; j < size; j += 1){
-                if (b.tile(i, j) == null){
-                    return true;
-                }
-            }
-        }
         return false;
     }
-
 
     /**
      * Returns true if any tile is equal to the maximum valid value.
@@ -311,23 +148,8 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
-        int size = b.size();
-        for (int i = 0; i < size; i += 1) {
-            for (int j = 0; j < size; j += 1) {
-                Tile t = b.tile(i, j);
-                if (t == null){
-                    continue;
-                }
-                if (t.value() == MAX_PIECE){
-                    return true;
-                }
-            }
-        }
         return false;
     }
-
-
-
 
     /**
      * Returns true if there are any valid moves on the board.
@@ -337,43 +159,6 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
-
-        if (emptySpaceExists(b)){
-            return true;
-        }
-        int size = b.size();
-        for (int i = 0; i < size; i += 1){
-            for (int j = 0; j < size; j += 1){
-                /** Because there's no empty space exists in the board, Tile t is not null */
-                Tile t = b.tile(i, j);
-                if (validTileIndex(b, i+1, j)){
-                    if (b.tile(i+1, j).value() == t.value()){
-                        return true;
-                    }
-                }
-                if (validTileIndex(b, i, j+1)){
-                    if (b.tile(i, j+1).value() == t.value()){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public static boolean validTileIndex(Board b, int row, int col){
-        int size = b.size();
-        if (row >= 0 & row < size & col >= 0 & col < size){
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean validTile(Board b, int col, int row){
-        int size = b.size();
-        if (((col >= 0) & (col < size)) & ((row >= 0) & (row < size))){
-            return true;
-        }
         return false;
     }
 
