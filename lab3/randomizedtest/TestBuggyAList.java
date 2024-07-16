@@ -32,8 +32,9 @@ public class TestBuggyAList {
     @Test
     public void randomizedTest() {
         AListNoResizing<Integer> a = new AListNoResizing<>();
+        BuggyAList<Integer> b = new BuggyAList<>();
 
-        int n = 500;
+        int n = 5000;
         for (int i = 0; i < n; i++) {
             int operationLimit;
             if (a.size() == 0){
@@ -46,19 +47,26 @@ public class TestBuggyAList {
             if (operationNumber == 0) {
                 int randVal = StdRandom.uniform(0, 100);
                 a.addLast(randVal);
-                System.out.println("addLast(" + randVal + ")");
+                b.addLast(randVal);
+                // System.out.println("addLast(" + randVal + ")");
             }
             else if (operationNumber == 1) {
-                int size = a.size();
-                System.out.println("size: " + size);
+                int sizeA = a.size();
+                int sizeB = b.size();
+                // System.out.println("size: " + sizeA);
+                assertEquals(sizeA, sizeB);
             }
             else if (operationNumber == 2) {
-                int last = a.getLast();
-                System.out.println("get last: " + last);
+                int lastA = a.getLast();
+                int lastB = b.getLast();
+                // System.out.println("get last: " + lastA);
+                assertEquals(lastA, lastB);
             }
             else if (operationNumber == 3) {
-                int last = a.removeLast();
-                System.out.println("remove last: " + last);
+                int lastA = a.removeLast();
+                int lastB = b.removeLast();
+                assertEquals(lastA, lastB);
+                // System.out.println("remove last: " + lastA);
             }
         }
     }
