@@ -102,7 +102,7 @@ public class LinkedListDeque<T> {
         if (index >= size){
             return null;
         }
-        getRecursiveHelper(sentinel.next, index);
+        return getRecursiveHelper(sentinel.next, index);
 
     }
 }
