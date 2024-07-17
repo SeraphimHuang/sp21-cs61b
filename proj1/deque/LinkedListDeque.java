@@ -91,21 +91,18 @@ public class LinkedListDeque<T> {
         return null;
     }
 
-    private T getRecursiveHelper(Node cur, int cur_index, int index){
-        if (cur_index >= size){
-            return null;
-        }
-        if (index < 0){
-            return null;
-        }
-        if (cur_index == index){
+    private T getRecursiveHelper(Node cur, int index){
+        if (index == 0){
             return cur.item;
         }
-        return getRecursiveHelper(cur.next, cur_index + 1, index);
+        return getRecursiveHelper(cur.next, index -= 1);
     }
 
     public T getRecursive(int index){
-        return getRecursiveHelper(sentinel.next, 0, 0);
-    }
+        if (index >= size){
+            return null;
+        }
+        getRecursiveHelper(sentinel.next, index);
 
+    }
 }
