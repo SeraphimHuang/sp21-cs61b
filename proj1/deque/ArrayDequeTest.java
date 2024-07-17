@@ -38,7 +38,7 @@ public class ArrayDequeTest {
     public void addRemoveTest() {
 
 
-        /*ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
         // should be empty
         assertTrue("ad1 should be empty upon initialization", ad1.isEmpty());
 
@@ -48,14 +48,14 @@ public class ArrayDequeTest {
 
         ad1.removeFirst();
         // should be empty
-        assertTrue("ad1 should be empty after removal", ad1.isEmpty());*/
+        assertTrue("ad1 should be empty after removal", ad1.isEmpty());
     }
 
     @Test
     /* Tests removing from an empty deque */
     public void removeEmptyTest() {
 
-        /*ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
         ad1.addFirst(3);
 
         ad1.removeLast();
@@ -68,7 +68,7 @@ public class ArrayDequeTest {
         errorMsg += "  student size() returned " + size + "\n";
         errorMsg += "  actual size() returned 0\n";
 
-        assertEquals(errorMsg, 0, size);*/
+        assertEquals(errorMsg, 0, size);
 
     }
 
@@ -76,7 +76,7 @@ public class ArrayDequeTest {
     /* Check if you can create ArrayDeques with different parameterized types*/
     public void multipleParamTest() {
 
-        /*ArrayDeque<String>  ad1 = new ArrayDeque<String>();
+        ArrayDeque<String>  ad1 = new ArrayDeque<String>();
         ArrayDeque<Double>  ad2 = new ArrayDeque<Double>();
         ArrayDeque<Boolean> ad3 = new ArrayDeque<Boolean>();
 
@@ -86,27 +86,61 @@ public class ArrayDequeTest {
 
         String s = ad1.removeFirst();
         double d = ad2.removeFirst();
-        boolean b = ad3.removeFirst();*/
+        boolean b = ad3.removeFirst();
     }
 
     @Test
     /* check if null is return when removing from an empty ArrayDeque. */
     public void emptyNullReturnTest() {
 
-        /*ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
 
         boolean passed1 = false;
         boolean passed2 = false;
         assertEquals("Should return null when removeFirst is called on an empty Deque,", null, ad1.removeFirst());
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, ad1.removeLast());
-*/
+    }
+
+    @Test
+    public void getTest(){
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addFirst(1);
+        ad1.addLast(2);
+        ad1.addFirst(0);
+
+        assertEquals(0, (int) ad1.get(0));
+        assertEquals(1, (int) ad1.get(1));
+        assertEquals(2, (int) ad1.get(2));
+        assertEquals(null, ad1.get(3));
+    }
+
+    @Test
+    public void getRecursiveTest(){
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addFirst(1);
+        ad1.addLast(2);
+        ad1.addFirst(0);
+
+        assertEquals(0, (int) ad1.getRecursive(0));
+        assertEquals(1, (int) ad1.getRecursive(1));
+        assertEquals(2, (int) ad1.getRecursive(2));
+        assertEquals(null, ad1.getRecursive(3));
+    }
+
+    @Test
+    public void resizeTest(){
+        ArrayDeque<Integer> ad = new ArrayDeque<>();
+        for (int i = 0; i < 30; i += 1){
+            ad.addLast(i);
+        }
+        ad.printDeque();
     }
 
     @Test
     /* Add large number of elements to deque; check if order is correct. */
     public void bigadequeTest() {
 
-        /*ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
         for (int i = 0; i < 1000000; i++) {
             ad1.addLast(i);
         }
@@ -117,7 +151,7 @@ public class ArrayDequeTest {
 
         for (double i = 999999; i > 500000; i--) {
             assertEquals("Should have the same value", i, (double) ad1.removeLast(), 0.0);
-        }*/
+        }
 
     }
 }
