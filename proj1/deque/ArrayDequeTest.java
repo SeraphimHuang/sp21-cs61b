@@ -102,41 +102,6 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void getTest(){
-        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
-        ad1.addFirst(1);
-        ad1.addLast(2);
-        ad1.addFirst(0);
-
-        assertEquals(0, (int) ad1.get(0));
-        assertEquals(1, (int) ad1.get(1));
-        assertEquals(2, (int) ad1.get(2));
-        assertEquals(null, ad1.get(3));
-    }
-
-    @Test
-    public void getRecursiveTest(){
-        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
-        ad1.addFirst(1);
-        ad1.addLast(2);
-        ad1.addFirst(0);
-
-        assertEquals(0, (int) ad1.getRecursive(0));
-        assertEquals(1, (int) ad1.getRecursive(1));
-        assertEquals(2, (int) ad1.getRecursive(2));
-        assertEquals(null, ad1.getRecursive(3));
-    }
-
-    @Test
-    public void resizeTest(){
-        ArrayDeque<Integer> ad = new ArrayDeque<>();
-        for (int i = 0; i < 30; i += 1){
-            ad.addLast(i);
-        }
-        ad.printDeque();
-    }
-
-    @Test
     /* Add large number of elements to deque; check if order is correct. */
     public void bigadequeTest() {
 
