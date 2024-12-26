@@ -19,21 +19,24 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return new ArrayDequeIterator();
     }
 
-    // todo: size, nextFirst, nextLast may change in the class, can't be used in iterators
     private class ArrayDequeIterator implements Iterator<T> {
 
         private int currentIndex;
         private int count; // # elements traversed
-        private int size_iterator;
-        public ArrayDequeIterator() {
+        private int sizeIterator; // the size of the deque when the iterator is created
+
+        /* the constructor is called when the iterator is created
+        can exist multiple iterators
+         */
+        ArrayDequeIterator() {
             currentIndex = plusOne(nextFirst);
             count = 0;
-            size_iterator = size;
+            sizeIterator = size;
         }
 
         @Override
         public boolean hasNext() {
-            if (count < size_iterator) {
+            if (count < sizeIterator) {
                 return true;
             }
             return false;
@@ -162,5 +165,24 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
         index = (plusOne(nextFirst) + index) % items.length;
         return items[index];
+    }
+
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Deque)) {
+            return false;
+        }
+        Deque<?> other = (Deque<?>) o;
+        if (this.size() != other.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.size(); i++) {
+            if (!this.get(i).equals(other.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
