@@ -17,7 +17,7 @@ public class ArrayDeque<T> {
     }
 
     private int minusOne(int i) {
-        return (i - 1) % items.length;
+        return (i - 1 + items.length) % items.length;
     }
 
     private int plusOne(int i) {
@@ -49,7 +49,7 @@ public class ArrayDeque<T> {
     public void printDeque() {
         int i = plusOne(nextFirst);
 
-        while (i != nextLast) {
+        for (int index = 0; index < size; index++) {
             System.out.print(items[i] + " ");
             i = plusOne(i);
         }
