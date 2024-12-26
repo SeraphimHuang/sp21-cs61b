@@ -1,6 +1,10 @@
 package deque;
 
-public class LinkedListDeque<T> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
+
     private class Node {
         private Node prev;
         private T item;
@@ -15,6 +19,39 @@ public class LinkedListDeque<T> {
     private Node sentinel;
     private int size;
 
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<T> {
+
+        Node cur;
+
+        public LinkedListIterator() {
+            cur = sentinel.next;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (cur != sentinel) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            T temp = cur.item;
+            cur = cur.next;
+            return temp;
+        }
+    }
+
+
     public LinkedListDeque(){
         sentinel = new Node(null, null);
         size = 0;
@@ -22,6 +59,7 @@ public class LinkedListDeque<T> {
         sentinel.next = sentinel;
     }
 
+    @Override
     public void addFirst(T item){
         Node temp = sentinel.next;
         sentinel.next = new Node(item, temp);
@@ -30,6 +68,7 @@ public class LinkedListDeque<T> {
         size += 1;
     }
 
+    @Override
     public void addLast(T item){
         Node temp = sentinel.prev;
         sentinel.prev = new Node(item, sentinel);
@@ -38,14 +77,17 @@ public class LinkedListDeque<T> {
         size += 1;
     }
 
+    @Override
     public boolean isEmpty(){
         return sentinel.next == sentinel;
     }
 
+    @Override
     public int size(){
         return size;
     }
 
+    @Override
     public void printDeque(){
         Node cur = sentinel;
         while (cur.next != sentinel){
@@ -55,6 +97,7 @@ public class LinkedListDeque<T> {
         System.out.println();
     }
 
+    @Override
     public T removeFirst(){
 
         if (isEmpty()){
@@ -67,6 +110,7 @@ public class LinkedListDeque<T> {
         return temp.item;
     }
 
+    @Override
     public T removeLast(){
 
         if (isEmpty()){
@@ -79,6 +123,7 @@ public class LinkedListDeque<T> {
         return temp.item;
     }
 
+    @Override
     public T get(int index){
         Node cur = sentinel;
         while (cur.next != sentinel){

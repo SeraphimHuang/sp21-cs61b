@@ -1,6 +1,9 @@
 package deque;
 
-public class ArrayDeque<T> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     private int size;
     private T[] items;
@@ -10,6 +13,40 @@ public class ArrayDeque<T> {
     private static final int INIT_CAPACITY = 8;
     private static final int RFACTOR = 2;
     private static final double MIN_USAGE_ratio = 0.25;
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
+    }
+
+    private class ArrayDequeIterator implements Iterator<T> {
+
+        private int currentIndex;
+        private int count; // # elements traversed
+        public ArrayDequeIterator() {
+            currentIndex = plusOne(nextFirst);
+            count = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (count <= size) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            T temp = items[currentIndex];
+            count += 1;
+            currentIndex = plusOne(nextFirst);
+            return temp;
+        }
+    }
 
     public ArrayDeque() {
         size = 0;
@@ -41,6 +78,7 @@ public class ArrayDeque<T> {
         nextLast = size;
     }
 
+    @Override
     public void addFirst(T item) {
         if (size == items.length) {
             resize(size * RFACTOR);
@@ -51,6 +89,7 @@ public class ArrayDeque<T> {
         nextFirst = minusOne(nextFirst);
     }
 
+    @Override
     public void addLast(T item) {
         if (size == items.length) {
             resize(size * RFACTOR);
@@ -61,14 +100,17 @@ public class ArrayDeque<T> {
         nextLast = plusOne(nextLast);
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void printDeque() {
         int i = plusOne(nextFirst);
 
@@ -79,7 +121,7 @@ public class ArrayDeque<T> {
         System.out.println();
     }
 
-
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -94,6 +136,7 @@ public class ArrayDeque<T> {
         return items[nextFirst];
     }
 
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -108,6 +151,7 @@ public class ArrayDeque<T> {
         return items[nextLast];
     }
 
+    @Override
     public T get(int index) {
         if (index >= size) {
             return null;
