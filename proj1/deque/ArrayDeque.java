@@ -107,11 +107,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
     public int size() {
         return size;
     }
@@ -133,7 +128,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
 
-        if (items.length >= 16 && size - 1 < size * MIN_USAGE_RATIO) {
+        if (items.length >= 16 && size - 1 < items.length * MIN_USAGE_RATIO) {
             resize(items.length / 2);
         }
 
@@ -148,7 +143,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
 
-        if (items.length >= 16 && size - 1 < size * MIN_USAGE_RATIO) {
+        if (items.length >= 16 && size - 1 < items.length * MIN_USAGE_RATIO) {
             resize(items.length / 2);
         }
 
