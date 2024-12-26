@@ -12,7 +12,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     private static final int INIT_CAPACITY = 8;
     private static final int RFACTOR = 2;
-    private static final double MIN_USAGE_ratio = 0.25;
+    private static final double MIN_USAGE_RATIO = 0.25;
 
     @Override
     public Iterator<T> iterator() {
@@ -127,7 +127,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
 
-        if (items.length >= 16 && size - 1 < size * MIN_USAGE_ratio) {
+        if (items.length >= 16 && size - 1 < size * MIN_USAGE_RATIO) {
             resize(items.length / 2);
         }
 
@@ -142,7 +142,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
 
-        if (items.length >= 16 && size - 1 < size * MIN_USAGE_ratio) {
+        if (items.length >= 16 && size - 1 < size * MIN_USAGE_RATIO) {
             resize(items.length / 2);
         }
 
