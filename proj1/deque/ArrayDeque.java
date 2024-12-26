@@ -19,18 +19,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         return new ArrayDequeIterator();
     }
 
+    // todo: size, nextFirst, nextLast may change in the class, can't be used in iterators
     private class ArrayDequeIterator implements Iterator<T> {
 
         private int currentIndex;
         private int count; // # elements traversed
+        private int size_iterator;
         public ArrayDequeIterator() {
             currentIndex = plusOne(nextFirst);
             count = 0;
+            size_iterator = size;
         }
 
         @Override
         public boolean hasNext() {
-            if (count <= size) {
+            if (count < size_iterator) {
                 return true;
             }
             return false;
@@ -43,7 +46,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             }
             T temp = items[currentIndex];
             count += 1;
-            currentIndex = plusOne(nextFirst);
+            currentIndex = plusOne(currentIndex);
             return temp;
         }
     }
