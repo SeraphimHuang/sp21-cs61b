@@ -122,24 +122,6 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void resizeAfterRemovalTest() throws NoSuchFieldException, IllegalAccessException {
-        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
-        for (int i = 0; i < 64; i++) {
-            ad1.addLast(i);
-        }
-        for (int i = 0; i < 63; i++) {
-            ad1.removeLast();
-        }
-        // 使用反射获取私有的 'items' 数组
-        Field itemsField = ArrayDeque.class.getDeclaredField("items");
-        itemsField.setAccessible(true); // 允许访问私有字段
-        Object[] items = (Object[]) itemsField.get(ad1);
-
-        // 打印内部数组的长度
-        System.out.println("内部数组长度: " + items.length);
-    }
-
-    @Test
     /* Add large number of elements to deque; check if order is correct. */
     public void bigadequeTest() {
 
